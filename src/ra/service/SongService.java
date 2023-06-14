@@ -3,7 +3,10 @@ package ra.service;
 import ra.model.Song;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SongService {
     private List<Song> songs;
@@ -33,6 +36,30 @@ public class SongService {
             }
         }
     }
+
+    public List<Song> searchSongsByName(String keyword) {
+        List<Song> searchResults = new ArrayList<>();
+        for (Song song : songs) {
+            if (song.getSongName().toLowerCase().contains(keyword.toLowerCase())) {
+                searchResults.add(song);
+            }
+        }
+        return searchResults;
+    }
+
+    public List<Song> getSongsByNameAscending() {
+        List<Song> sortedSongs = new ArrayList<>(songs);
+        Collections.sort(sortedSongs, Comparator.comparing(Song::getSongName));
+        return sortedSongs;
+    }
+
+    public List<Song> getNewestSongs() {
+        List<Song> sortedSongs = new ArrayList<>(songs);
+        Collections.sort(sortedSongs, Comparator.comparing(Song::getCreatedDate).reversed());
+        return sortedSongs.stream().limit(10).collect(Collectors.toList());
+    }
+
+
 
     public Song findSongById(String songId) {
         for (Song song : songs) {

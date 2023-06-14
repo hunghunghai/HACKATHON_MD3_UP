@@ -34,6 +34,18 @@ public class SingerService {
         }
     }
 
+    public List<Singer> searchSingersByName(String keyword) {
+        List<Singer> searchResults = new ArrayList<>();
+        for (Singer singer : singers) {
+            if (singer.getSingerName().toLowerCase().contains(keyword.toLowerCase())) {
+                searchResults.add(singer);
+            }
+        }
+        return searchResults;
+    }
+
+
+
     public Singer findSingerById(int singerId) {
         for (Singer singer : singers) {
             if (singer.getSingerId() == singerId) {

@@ -5,6 +5,7 @@ import ra.model.Song;
 import ra.service.SongService;
 import ra.service.SingerService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class SongController {
@@ -74,4 +75,57 @@ public class SongController {
             System.out.println("Không tìm tháy bài hát.");
         }
     }
+
+    public void searchSongsByName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Nhập tên bài hát: ");
+        String keyword = scanner.nextLine();
+
+        List<Song> searchResults = songService.searchSongsByName(keyword);
+        if (searchResults.isEmpty()) {
+            System.out.println("Không tìm thấy bài hát nào có tên chứa từ khóa: " + keyword);
+        } else {
+            System.out.println("Kết quả tìm kiếm:");
+            for (Song song : searchResults) {
+                System.out.println("Mã ID: " + song.getSongId());
+                System.out.println("Tên bài hát: " + song.getSongName());
+                System.out.println("Ca sĩ: " + song.getSinger());
+                System.out.println("Nhạc sĩ: " + song.getSongWriter());
+                System.out.println("***************************");
+            }
+        }
+    }
+
+    public void displaySongsByNameAscending() {
+        List<Song> sortedSongs = songService.getSongsByNameAscending();
+        if (sortedSongs.isEmpty()) {
+            System.out.println("Danh sách bài hát trống.");
+        } else {
+            System.out.println("Danh sách bài hát theo thứ tự tên tăng dần:");
+            for (Song song : sortedSongs) {
+                System.out.println("Mã ID: " + song.getSongName());
+                System.out.println("Tên bài hát: " + song.getSongName());
+                System.out.println("Ca sĩ: " + song.getSinger());
+                System.out.println("Nhạc sĩ: " + song.getSongWriter());
+                System.out.println("***************************");
+            }
+        }
+    }
+
+    public void displayNewestSongs() {
+        List<Song> newestSongs = songService.getNewestSongs();
+        if (newestSongs.isEmpty()) {
+            System.out.println("Danh sách bài hát trống.");
+        } else {
+            System.out.println("10 bài hát được đăng mới nhất:");
+            for (Song song : newestSongs) {
+                System.out.println("Mã ID: " + song.getSongName());
+                System.out.println("Tên bài hát: " + song.getSongName());
+                System.out.println("Ca sĩ: " + song.getSinger());
+                System.out.println("Nhạc sĩ: " + song.getSongWriter());
+                System.out.println("***************************");
+            }
+        }
+    }
+
 }

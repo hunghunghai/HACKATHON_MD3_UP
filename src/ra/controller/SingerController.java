@@ -3,6 +3,7 @@ package ra.controller;
 import ra.model.Singer;
 import ra.service.SingerService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class SingerController {
@@ -64,4 +65,26 @@ public class SingerController {
             System.out.println("Không tìm thấy ca sĩ.");
         }
     }
+
+    public void searchSingersByName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Nhập tên ca sĩ: ");
+        String keyword = scanner.nextLine();
+
+        List<Singer> searchResults = singerService.searchSingersByName(keyword);
+        if (searchResults.isEmpty()) {
+            System.out.println("Không tìm thấy ca sĩ nào có tên chứa từ khóa: " + keyword);
+        } else {
+            System.out.println("Kết quả tìm kiếm:");
+            for (Singer singer : searchResults) {
+                System.out.println("Mã ID: " + singer.getSingerId());
+                System.out.println("Tên ca sĩ: " + singer.getSingerName());
+                System.out.println("Tuổi: " + singer.getAge());
+                System.out.println("Quốc tịch: " + singer.getNationality());
+                System.out.println("***************************");
+            }
+        }
+    }
+
+
 }
