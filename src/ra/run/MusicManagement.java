@@ -118,7 +118,7 @@ public class MusicManagement {
                     }
                     break;
                 case 4:
-                    System.out.println("Exiting...");
+                    System.out.println("Thoát...");
                     System.exit(0);
                     break;
                 default:
